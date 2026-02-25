@@ -29,3 +29,15 @@ Type ".help" for more information.
 > p.parse("2*3")
 6
 ```
+## Development
+
+**2.1. What's the difference between `/* skip whitespace */` and returning a token.**
+
+
+**3. Modify the lexical analyzer in grammar.jison to skip single-line comments starting with //.**
+
+`\/\/.*                { /* ignore comments */; }`
+
+**4. Modify the lexical analyzer in grammar.jison to recognize floating-point numbers such as 2.35e-3, 2.35e+3, 2.35E-3, 2.35, and 23.**
+
+`[0-9]+(\.[0-9]+)?([eE][-+][0-9]+)?            { return 'NUMBER';       }`
