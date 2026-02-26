@@ -110,7 +110,6 @@ describe('Parser Tests', () => {
       expect(() => parse("3 +")).toThrow();
       expect(() => parse("+ 3")).toThrow();
       expect(() => parse("3 + + 4")).toThrow();
-      expect(() => parse("3.5")).toThrow(); // Only integers are supported
     });
 
     test('should handle incomplete expressions', () => {
@@ -127,5 +126,15 @@ describe('Parser Tests', () => {
       expect(parse("7 - 5 - 1")).toBe(1);
     });
   });
+
+  test('Should handle comments', () => {
+    expect(parse("// comentario\n2 + 5")).toBe(7);
+  })
+
+  test('Should handle floats', () => {
+    expect(parse("3.5")).toBe(3.5);
+    expect(() => parse("2.35 * 2").toBe(4.7));
+    expect(parse("2.35e-3")).toBe(0.00235);
+  })
 
 });
