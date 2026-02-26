@@ -31,13 +31,13 @@ Type ".help" for more information.
 ```
 ## Development
 
-**2.1. What's the difference between `/* skip whitespace */` and returning a token.**
+**2.1. Describa la diferencia entre `/* skip whitespace */` y devolver un token.**
 
 /* skip whitespace */ significa que el lexer reconoce el patrón pero no devuelve nada al parser (lo ignora).
 
 Devolver un token significa que el lexer envía una unidad léxica al parser para que la use en el análisis sintáctico.
 
-**3.2. Escriba la secuencia exacta de tokens producidos para la entrada 123\*\*45+@.**
+**2.2. Escriba la secuencia exacta de tokens producidos para la entrada 123\*\*45+@.**
 
 123 → NUMBER \
 ** → OP \
@@ -45,19 +45,27 @@ Devolver un token significa que el lexer envía una unidad léxica al parser par
 \+ → OP \
 @ → INVALID
 
-**3.3. Indique por qué ** debe aparecer antes que [-+*/].**
-**3.4. Explique cuándo se devuelve EOF.**
-**3.5. Explique por qué existe la regla . que devuelve INVALID**
+**2.3. Indique por qué ** debe aparecer antes que [-+*/].**
 
-**3. Modify the lexical analyzer in grammar.jison to skip single-line comments starting with //.**
+Porque los analizadores léxicos usan la primera regla que coincida, entonces si [-+*/] apareciera antes, la cadena "**" se leería como dos tokens "*" distintos, por lo tanto, es necesario colocar el operador más largo antes.
+
+**2.4. Explique cuándo se devuelve EOF.**
+
+EOF se devuelve cuando el lexer alcanza el final de la entrada, indicándole al parser que no hay más tokens.
+
+**2.5. Explique por qué existe la regla . que devuelve INVALID**
+
+Sirve para capturar carácteres no reconicidos por todas las reglas anteriores, indicando que se ha encontrado un símbolo no válido y por tanto existe un error léxico.
+
+**3. Modifique el analizador léxico de grammar.jison para que se salte los comentarios de una línea que empiezan por //.**
 
 `\/\/.*                { /* ignore comments */; }`
 
-**4. Modify the lexical analyzer in grammar.jison to recognize floating-point numbers such as 2.35e-3, 2.35e+3, 2.35E-3, 2.35, and 23.**
+**4. Modifique el analizador léxico de grammar.jison para que reconozca números en punto flotante como 2.35e-3, 2.35e+3, 2.35E-3, 2.35 y 23.**
 
 `[0-9]+(\.[0-9]+)?([eE][-+][0-9]+)?            { return 'NUMBER';       }`
 
-**5. Añada pruebas para las modificaciones del analizador léxico de grammar.jison**
+**5.Añada pruebas para las modificaciones del analizador léxico de grammar.jison**
 ```javascript
   test('Should handle comments', () => {
     expect(parse("// comentario\n2 + 5")).toBe(7);
