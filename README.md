@@ -38,10 +38,11 @@ Type ".help" for more information.
 Devolver un token significa que el lexer envía una unidad léxica al parser para que la use en el análisis sintáctico.
 
 **3.2. Escriba la secuencia exacta de tokens producidos para la entrada 123\*\*45+@.**
-123 → NUMBER
-** → OP
-45 → NUMBER
-+ → OP
+
+123 → NUMBER \
+** → OP \
+45 → NUMBER \
+\+ → OP \
 @ → INVALID
 
 **3.3. Indique por qué ** debe aparecer antes que [-+*/].**
