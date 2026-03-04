@@ -31,6 +31,8 @@ Type ".help" for more information.
 ```
 ## Development
 
+## Práctica 4
+
 **2.1. Describa la diferencia entre `/* skip whitespace */` y devolver un token.**
 
 /* skip whitespace */ significa que el lexer reconoce el patrón pero no devuelve nada al parser (lo ignora).
