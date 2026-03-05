@@ -69,3 +69,29 @@ describe('Float precedence and associativity tests', () => {
   });
 
 });
+
+describe('Parentheses handling tests', () => {
+
+  test('should override normal precedence with parentheses', () => {
+    expect(parse("(2 + 3) * 4")).toBe(20);
+    expect(parse("2 * (3 + 4)")).toBe(14);
+    expect(parse("(10 - 6) / 2")).toBe(2);
+  });
+
+  test('should handle nested parentheses', () => {
+    expect(parse("((2 + 3) * 2)")).toBe(10);
+    expect(parse("(1 + (2 * 3))")).toBe(7);
+    expect(parse("((1 + 2) * (3 + 4))")).toBe(21);
+  });
+
+  test('should work with exponentiation inside parentheses', () => {
+    expect(parse("(2 + 1) ** 2")).toBe(9);
+    expect(parse("2 ** (1 + 2)")).toBe(8);
+  });
+
+  test('should work with floats inside parentheses', () => {
+    expect(parse("(2.5 + 3.5) * 2")).toBeCloseTo(12);
+    expect(parse("2 * (1.5 + 2.5)")).toBeCloseTo(8);
+  });
+
+});

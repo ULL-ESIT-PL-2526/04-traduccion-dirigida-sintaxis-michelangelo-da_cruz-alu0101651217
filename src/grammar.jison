@@ -5,8 +5,10 @@
 \/\/[^\n]*                                    { /* ignore comments */; }
 [0-9]+(\.[0-9]+)?([eE][-+][0-9]+)?            { return 'NUMBER';       }
 "**"                                          { return 'OPOW';         }
-[*/]                                          { return 'OPMU';          }
+[*/]                                          { return 'OPMU';         }
 [-+]                                          { return 'OPAD';         }
+[(]                                           { return 'LEFTPAR'       }
+[)]                                           { return 'RIGHTPAR'       }
 <<EOF>>                                       { return 'EOF';          }
 .                                             { return 'INVALID';      }
 /lex
@@ -45,6 +47,8 @@ power
 factor
     : NUMBER
         { $$ = Number(yytext); }
+    | LEFTPAR expression RIGHTPAR
+        { $$ = $expression; }
     ;
 %%
 
