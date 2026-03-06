@@ -95,3 +95,35 @@ describe('Parentheses handling tests', () => {
   });
 
 });
+
+describe('Invalid input tests', () => {
+
+  test('should fail on invalid characters', () => {
+    expect(() => parse("2 + @")).toThrow();
+    expect(() => parse("#")).toThrow();
+    expect(() => parse("3 & 4")).toThrow();
+  });
+
+  test('should fail on incomplete expressions', () => {
+    expect(() => parse("2 +")).toThrow();
+    expect(() => parse("* 3")).toThrow();
+    expect(() => parse("4 **")).toThrow();
+  });
+
+  test('should fail on malformed expressions', () => {
+    expect(() => parse("2 + + 3")).toThrow();
+    expect(() => parse("3 * / 2")).toThrow();
+    expect(() => parse("** 2 3")).toThrow();
+  });
+
+  test('should fail on incorrect parentheses', () => {
+    expect(() => parse("(2 + 3")).toThrow();
+    expect(() => parse("2 + 3)")).toThrow();
+    expect(() => parse("((2 + 3)")).toThrow();
+  });
+
+  test('should fail on empty input', () => {
+    expect(() => parse("")).toThrow();
+  });
+
+});
