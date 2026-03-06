@@ -79,3 +79,31 @@ Sirve para capturar carácteres no reconicidos por todas las reglas anteriores, 
     expect(parse("2.35e-3")).toBe(0.00235);
   })
 ```
+
+## Práctica 5
+### **1. Partiendo de la gramática y las siguientes frases 4.0-2.0*3.0, 2\*\*3\*\*2 y 7-4/2:**
+
+**1.1. Escriba la derivación para cada una de las frases**
+
+L => E **eof** => E **op** T eof => E **op** T **op** T eof => T **op** T **op** T eof => 4.0 **op** T **op** T eof => 4.0 - T **op** T eof => 4.0 - 2.0 **op** T eof => 4.0 - 2.0 * T eof => 4.0 - 2.0 * 3.0 eof
+
+L => E **eof** => E **op** T eof => E **op** T **op** T eof => T **op** T **op** T eof => 2 ** 3 ** 2 eof
+
+L => E **eof** => E **op** T eof => E **op** T **op** T eof => T **op** T **op** T eof => 7 - 4 / 2
+
+**1.2. Escriba el árbol de análisis sintáctico (parse tree) para cada una de las frases.**
+
+4.0-2.0*3.0: \
+![Arbol1](imagenes/IMG_6776.png)
+
+2\*\*3\*\*2: \
+![Arbol2](imagenes/IMG_6777.png)
+
+7-4/2: \
+![Arbol3](imagenes/IMG_6775.png)
+
+
+**1.3. ¿En qué orden se evaluan las acciones semánticas para cada una de las frases? Nótese que la evaluación a la que da lugar la sdd para las frases no se corresponde con los convenios de evaluación establecidos en matemáticas y los lenguajes de programación.**
+
+Todos los operadores (+ - * / **) están en el mismo no terminal OP. Para el parser, todos los operadores son iguales. Entonces la única “regla estructural” que queda es: 
+La recursión por la izquierda, lo que fuerza evaluación de izquierda a derecha sin precedencia.
